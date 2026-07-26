@@ -69,7 +69,7 @@ Return ONLY the cover letter.
         client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-2.5-flash-lite",
             contents=prompt,
         )
 
@@ -77,17 +77,11 @@ Return ONLY the cover letter.
 
         if not cover_letter:
             return Response(
-                {
-                    "error": "Gemini returned an empty response."
-                },
+                {"error": "Gemini returned an empty response."},
                 status=500,
             )
 
-        return Response(
-            {
-                "cover_letter": cover_letter
-            }
-        )
+        return Response({"cover_letter": cover_letter})
 
     except Exception as e:
         print("========== GEMINI ERROR ==========")
