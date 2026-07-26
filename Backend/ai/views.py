@@ -2,10 +2,8 @@ from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-import google.generativeai as genai
+from google import genai
 import traceback
-
-genai.configure(api_key=settings.GEMINI_API_KEY)
 
 
 @api_view(["POST"])
@@ -19,7 +17,7 @@ def generate_cover_letter(request):
     if not job_title or not company or not skills:
         return Response(
             {"error": "job_title, company and skills are required"},
-            status=400
+            status=400,
         )
 
     prompt = f"""
@@ -64,18 +62,32 @@ Return ONLY the cover letter.
 """
 
     try:
-        print("Gemini Version:", genai.__version__)
-        print("Has GenerativeModel:", hasattr(genai, "GenerativeModel"))
+        print("========== GOOGLE GENAI ==========")
+        print("API Key Loaded:", bool(settings.GEMINI_API_KEY))
+        print("=================================")
 
-        # model = genai.GenerativeModel("gemini-1.5-flash")
-        model = genai.GenerativeModel("gemini-2.5-flash")
+        client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+        )
 
-        response = model.generate_content(prompt)
+        cover_letter = response.text
 
-        return Response({
-            "cover_letter": response.text
-        })
+        if not cover_letter:
+            return Response(
+                {
+                    "error": "Gemini returned an empty response."
+                },
+                status=500,
+            )
+
+        return Response(
+            {
+                "cover_letter": cover_letter
+            }
+        )
 
     except Exception as e:
         print("========== GEMINI ERROR ==========")
@@ -85,7 +97,7 @@ Return ONLY the cover letter.
         return Response(
             {
                 "error": str(e),
-                "traceback": traceback.format_exc()
+                "traceback": traceback.format_exc(),
             },
-            status=500
+            status=500,
         )
