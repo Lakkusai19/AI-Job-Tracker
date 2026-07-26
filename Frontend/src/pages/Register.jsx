@@ -32,28 +32,53 @@ function Register() {
     setSuccess("");
 
     try {
-      await api.post("accounts/register/", formData);
+      const response = await api.post("accounts/register/", formData);
+
+      console.log("Registration Success:", response.data);
 
       setSuccess("🎉 Registration Successful!");
 
       setTimeout(() => {
         navigate("/");
       }, 1500);
-    } catch (err) {
-      console.error(err);
 
-      setError(
-        err.response?.data?.detail ||
-        err.response?.data?.message ||
-        "Registration failed. Please try again."
-      );
+    } catch (err) {
+
+      console.error("Registration Error:", err);
+      console.error("Response Data:", err.response?.data);
+
+      let errorMessage = "Registration failed.";
+
+      if (err.response?.data) {
+        const data = err.response.data;
+
+        if (typeof data === "string") {
+          errorMessage = data;
+        } else if (data.detail) {
+          errorMessage = data.detail;
+        } else {
+          errorMessage = Object.entries(data)
+            .map(([field, messages]) => {
+              return `${field}: ${
+                Array.isArray(messages)
+                  ? messages.join(", ")
+                  : messages
+              }`;
+            })
+            .join("\n");
+        }
+      }
+
+      setError(errorMessage);
     }
   };
 
   return (
     <div className="auth-container">
       <div className="auth-wrapper">
+
         {/* Left Section */}
+
         <div className="auth-left">
           <FaRobot />
 
@@ -67,8 +92,10 @@ function Register() {
         </div>
 
         {/* Right Section */}
+
         <div className="auth-right">
           <div className="auth-card">
+
             <h2>Create Account ✨</h2>
 
             <p className="mb-4">
@@ -77,7 +104,9 @@ function Register() {
 
             {error && (
               <div className="alert alert-danger">
-                {error}
+                <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                  {error}
+                </pre>
               </div>
             )}
 
@@ -88,6 +117,7 @@ function Register() {
             )}
 
             <form onSubmit={registerUser}>
+
               <input
                 type="text"
                 className="form-control"
@@ -109,6 +139,7 @@ function Register() {
               />
 
               <div className="position-relative">
+
                 <input
                   type={showPassword ? "text" : "password"}
                   className="form-control"
@@ -131,11 +162,13 @@ function Register() {
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
+
               </div>
 
               <button className="auth-btn mt-3">
                 Create Account
               </button>
+
             </form>
 
             <div className="text-center mt-4">
@@ -144,8 +177,10 @@ function Register() {
                 Login
               </Link>
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
   );
