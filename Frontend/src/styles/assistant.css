@@ -1,0 +1,305 @@
+/* ===========================
+   Page
+=========================== */
+
+.assistant-page{
+    padding:40px;
+    background:#f4f7fc;
+    min-height:100vh;
+}
+
+/* ===========================
+   Hero Section
+=========================== */
+
+.assistant-hero{
+    background:linear-gradient(135deg,#4f46e5,#06b6d4);
+    color:#fff;
+    border-radius:24px;
+    padding:45px;
+    text-align:center;
+    margin-bottom:35px;
+    box-shadow:0 15px 35px rgba(79,70,229,.25);
+}
+
+.hero-icon{
+    font-size:72px;
+    margin-bottom:18px;
+}
+
+.assistant-hero h1{
+    font-size:2.4rem;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.assistant-hero p{
+    font-size:17px;
+    opacity:.95;
+    margin:0;
+}
+
+/* ===========================
+   Main Card
+=========================== */
+
+.assistant-card{
+    background:#fff;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+/* ===========================
+   Input Fields
+=========================== */
+
+.input-group-custom{
+    margin-bottom:25px;
+}
+
+.input-group-custom label{
+    display:block;
+    margin-bottom:10px;
+    font-weight:600;
+    color:#374151;
+    font-size:15px;
+}
+
+.input-group-custom label svg{
+    color:#4f46e5;
+    margin-right:8px;
+}
+
+.form-control{
+    border-radius:14px;
+    padding:14px 16px;
+    border:1px solid #d6dbe5;
+    font-size:16px;
+    transition:.3s;
+}
+
+.form-control:focus{
+    border-color:#4f46e5;
+    box-shadow:0 0 0 .2rem rgba(79,70,229,.15);
+}
+
+textarea.form-control{
+    min-height:180px;
+    resize:none;
+}
+
+/* ===========================
+   Generate Button
+=========================== */
+
+.btn-gradient{
+    background:linear-gradient(90deg,#4f46e5,#06b6d4);
+    color:#fff;
+    border:none;
+    padding:15px;
+    font-size:17px;
+    font-weight:600;
+    border-radius:14px;
+    transition:.3s;
+}
+
+.btn-gradient:hover{
+    color:#fff;
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(79,70,229,.30);
+}
+
+/* ===========================
+   Output Card
+=========================== */
+
+.output-card{
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    padding:28px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    height:420px;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.output-card h3{
+
+    font-weight:700;
+
+    color:#1f2937;
+
+}
+
+/* ===========================
+   Cover Letter Area
+=========================== */
+
+.cover-letter-output{
+
+    flex:1;
+
+    width:100%;
+
+    min-height:160px;
+
+    border:3px solid #7C9CFF;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    background:#fff;
+
+    font-size:17px;
+
+    line-height:1.9;
+
+    font-family:"Segoe UI",sans-serif;
+
+    color:#333;
+
+    resize:none;
+
+    outline:none;
+
+    overflow-y:auto;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.cover-letter-output:focus{
+
+    border-color:#4f46e5;
+
+    box-shadow:0 0 0 4px rgba(79,70,229,.15);
+
+}
+
+/* Scrollbar */
+
+.cover-letter-output::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.cover-letter-output::-webkit-scrollbar-thumb{
+
+    background:#4f46e5;
+
+    border-radius:10px;
+
+}
+
+/* ===========================
+   Character Badges
+=========================== */
+
+.badge{
+
+    padding:10px 14px;
+
+    font-size:14px;
+
+    border-radius:10px;
+
+}
+
+/* ===========================
+   Action Buttons
+=========================== */
+
+.action-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:22px;
+
+}
+
+.action-buttons button{
+
+    flex:1;
+
+    height:52px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:992px){
+
+.assistant-page{
+
+padding:20px;
+
+}
+
+.assistant-hero{
+
+padding:30px;
+
+}
+
+.assistant-card{
+
+padding:20px;
+
+}
+
+.output-card{
+
+height:auto;
+
+margin-top:25px;
+
+}
+
+.cover-letter-output{
+
+min-height:450px;
+
+}
+
+.action-buttons{
+
+flex-direction:column;
+
+}
+
+.action-buttons button{
+
+width:100%;
+
+}
+
+}
