@@ -28,7 +28,7 @@ if dotenv_path.exists():
 SECRET_KEY = 'django-insecure--8uzq55ay-vr68hln*$#)mb-j3-m3y3l&tpc9_=@n9yz0$!pfb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 # Application definition
