@@ -3,8 +3,9 @@ djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
 django-cors-headers==4.4.0
 
-google-generativeai==0.1.0rc1
+google-generativeai==0.8.5
 
+python-dotenv==1.0.1
 requests==2.32.4
 Pillow==10.4.0
 
@@ -16,9 +17,10 @@ asgiref==3.8.1
 sqlparse==0.5.5
 typing_extensions==4.13.2
 tzdata==2026.3
+
 urllib3==2.2.3
 certifi==2026.7.22
 charset-normalizer==3.4.9
 idna==3.15
-python-dotenv==1.0.1
+
 gunicorn==23.0.0
