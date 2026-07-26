@@ -30,14 +30,12 @@ SECRET_KEY = 'django-insecure--8uzq55ay-vr68hln*$#)mb-j3-m3y3l&tpc9_=@n9yz0$!pfb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    ".onrender.com",
-]
-
-
+ALLOWED_HOSTS = ["*"]
 # Application definition
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.vercel.app",
+    "https://*.railway.app",
+]
 
 INSTALLED_APPS = [
     # Default Django Apps
