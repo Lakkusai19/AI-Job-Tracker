@@ -63,6 +63,9 @@ Return ONLY the cover letter.
 """
 
     try:
+        print("Gemini Version:", genai.__version__)
+        print("Has GenerativeModel:", hasattr(genai, "GenerativeModel"))
+
         model = genai.GenerativeModel("gemini-1.5-flash")
 
         response = model.generate_content(prompt)
@@ -72,6 +75,9 @@ Return ONLY the cover letter.
         })
 
     except Exception as e:
+        import traceback
+
         return Response({
-            "error": str(e)
+            "error": str(e),
+            "traceback": traceback.format_exc()
         }, status=500)
