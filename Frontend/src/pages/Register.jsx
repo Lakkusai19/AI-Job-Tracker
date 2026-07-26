@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRobot, FaEye, FaEyeSlash } from "react-icons/fa";
-import axios from "axios";
+import api from "../api/axios";
 import "../styles/auth.css";
 
 function Register() {
@@ -32,20 +32,19 @@ function Register() {
     setSuccess("");
 
     try {
-      await axios.post(
-        "http://127.0.0.1:8000/api/accounts/register/",
-        formData
-      );
+      await api.post("accounts/register/", formData);
 
       setSuccess("🎉 Registration Successful!");
 
       setTimeout(() => {
         navigate("/");
       }, 1500);
-
     } catch (err) {
+      console.error(err);
+
       setError(
         err.response?.data?.detail ||
+        err.response?.data?.message ||
         "Registration failed. Please try again."
       );
     }
@@ -53,13 +52,9 @@ function Register() {
 
   return (
     <div className="auth-container">
-
       <div className="auth-wrapper">
-
         {/* Left Section */}
-
         <div className="auth-left">
-
           <FaRobot />
 
           <h1>Join AI Job Tracker</h1>
@@ -69,15 +64,11 @@ function Register() {
             interviews, AI-generated cover letters, and career
             progress from one beautiful dashboard.
           </p>
-
         </div>
 
         {/* Right Section */}
-
         <div className="auth-right">
-
           <div className="auth-card">
-
             <h2>Create Account ✨</h2>
 
             <p className="mb-4">
@@ -97,7 +88,6 @@ function Register() {
             )}
 
             <form onSubmit={registerUser}>
-
               <input
                 type="text"
                 className="form-control"
@@ -119,7 +109,6 @@ function Register() {
               />
 
               <div className="position-relative">
-
                 <input
                   type={showPassword ? "text" : "password"}
                   className="form-control"
@@ -142,31 +131,22 @@ function Register() {
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
-
               </div>
 
               <button className="auth-btn mt-3">
                 Create Account
               </button>
-
             </form>
 
             <div className="text-center mt-4">
-
               Already have an account?{" "}
-
               <Link className="auth-link" to="/">
                 Login
               </Link>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }
