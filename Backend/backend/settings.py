@@ -15,7 +15,10 @@ import os
 from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")
+dotenv_path = BASE_DIR / ".env"
+
+if dotenv_path.exists():
+    load_dotenv(dotenv_path)
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,9 +28,13 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = 'django-insecure--8uzq55ay-vr68hln*$#)mb-j3-m3y3l&tpc9_=@n9yz0$!pfb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com",
+]
 
 
 # Application definition
@@ -161,4 +168,3 @@ SIMPLE_JWT = {
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-print(GEMINI_API_KEY)
