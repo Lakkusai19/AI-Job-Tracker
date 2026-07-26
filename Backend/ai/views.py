@@ -63,7 +63,7 @@ Return ONLY the cover letter.
 """
 
     try:
-        model = genai.GenerativeModel("gemini-flash-latest")
+        model = genai.GenerativeModel("gemini-1.5-flash")
 
         response = model.generate_content(prompt)
 
