@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   frontend:
@@ -22,6 +25,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+          cache-dependency-path: Frontend/package-lock.json
 
       - name: Install Frontend Dependencies
         run: npm install
@@ -46,10 +51,22 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
       - name: Install Backend Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install --no-cache-dir -r requirements.txt
+
+      - name: Verify python-dotenv
+        run: |
+          pip show python-dotenv
+          python -c "from dotenv import load_dotenv; print('python-dotenv installed successfully')"
 
       - name: Django System Check
-        run: python manage.py check
+        env:
+          SECRET_KEY: dummy-secret-key
+          DEBUG: True
+          GEMINI_API_KEY: dummy-key
+        run: |
+          python manage.py check
