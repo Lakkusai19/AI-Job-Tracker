@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 import google.generativeai as genai
+import traceback
 
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
@@ -75,9 +76,14 @@ Return ONLY the cover letter.
         })
 
     except Exception as e:
-        import traceback
+        print("========== GEMINI ERROR ==========")
+        print(traceback.format_exc())
+        print("==================================")
 
-        return Response({
-            "error": str(e),
-            "traceback": traceback.format_exc()
-        }, status=500)
+        return Response(
+            {
+                "error": str(e),
+                "traceback": traceback.format_exc()
+            },
+            status=500
+        )
