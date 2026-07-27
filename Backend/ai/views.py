@@ -16,7 +16,9 @@ def generate_cover_letter(request):
 
     if not job_title or not company or not skills:
         return Response(
-            {"error": "job_title, company and skills are required"},
+            {
+                "error": "job_title, company and skills are required."
+            },
             status=400,
         )
 
@@ -40,18 +42,17 @@ Dear Hiring Manager,
 3. Use ONLY the skills provided:
 {skills}
 
-4. Do NOT invent or mention technologies, certifications, or experiences that are not listed.
+4. Do NOT invent any technologies, certifications, or experience.
 
-5. Do NOT use placeholders like:
+5. Do NOT include placeholders like:
 [Your Name]
-[Date]
 [Email]
 [Phone]
-[LinkedIn]
+[Date]
 
-6. Write naturally as a motivated software developer.
+6. Keep it professional.
 
-7. Keep it between 180 and 220 words.
+7. Length: 180-220 words.
 
 8. End with:
 
@@ -62,9 +63,10 @@ Return ONLY the cover letter.
 """
 
     try:
-        print("========== GOOGLE GENAI ==========")
+        print("\n========== GOOGLE GENAI ==========")
         print("API Key Loaded:", bool(settings.GEMINI_API_KEY))
-        print("=================================")
+        print("Using Model: gemini-3.6-flash")
+        print("=================================\n")
 
         client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
@@ -73,24 +75,32 @@ Return ONLY the cover letter.
             contents=prompt,
         )
 
-        cover_letter = response.text
+        print("Gemini Response Received")
+
+        cover_letter = ""
+
+        if hasattr(response, "text") and response.text:
+            cover_letter = response.text.strip()
 
         if not cover_letter:
             return Response(
-                {"error": "Gemini returned an empty response."},
+                {
+                    "error": "Gemini returned an empty response."
+                },
                 status=500,
             )
 
         return Response(
             {
                 "cover_letter": cover_letter
-            }
+            },
+            status=200,
         )
 
     except Exception as e:
-        print("========== GEMINI ERROR ==========")
-        print(traceback.format_exc())
-        print("==================================")
+        print("\n========== GEMINI ERROR ==========")
+        traceback.print_exc()
+        print("==================================\n")
 
         return Response(
             {
